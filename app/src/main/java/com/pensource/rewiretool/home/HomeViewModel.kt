@@ -11,13 +11,10 @@ import kotlinx.coroutines.launch
 class HomeViewModel @ViewModelInject constructor(
     private val getRandomReasonUseCase: GetRandomReasonUseCase,
     private val insertReasonUseCase: InsertReasonUseCase,
-    private val getReasonLiveCountUseCase: GetReasonLiveCountUseCase
+    getReasonLiveCountUseCase: GetReasonLiveCountUseCase
 ) : ViewModel() {
 
-    val reasonCount: LiveData<Int> = getReasonLiveCountUseCase.execute()
-
     private val _reason = MutableLiveData<Reason>()
-
     val reason: LiveData<Reason> = _reason
     fun loadRandomReason() {
         viewModelScope.launch {
@@ -25,6 +22,7 @@ class HomeViewModel @ViewModelInject constructor(
         }
     }
 
+    val reasonCount: LiveData<Int> = getReasonLiveCountUseCase.execute()
 
     val reasonText = MutableLiveData("")
 
